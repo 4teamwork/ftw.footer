@@ -1,7 +1,7 @@
 Introduction
 ============
 
-``ftw.footer`` provides a viewlet, which shows 1 - 4 portlet columns.
+``ftw.footer`` provides a viewlet, which shows 1 - 4 contextual portlet columns.
 
 
 Links

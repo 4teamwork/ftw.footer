@@ -45,5 +45,9 @@
         permission="ftw.footer.ManageFooter"
         />
 
+    <adapter
+      factory=".column.FooterColumnPortletManagerRenderer"
+      provides="plone.portlets.interfaces.IPortletManagerRenderer"
+      />
 
 </configure>
