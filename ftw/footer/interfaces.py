@@ -1,5 +1,6 @@
-from zope.interface import Interface
+from plone.app.portlets.interfaces import IColumn
 from zope import schema
+from zope.interface import Interface
 
 
 class IFooterSettings(Interface):
@@ -14,3 +15,7 @@ class IFooterSettings(Interface):
 
 class IFtwFooterLayer(Interface):
     """Request marker interface"""
+
+
+class IFooterColumn(IColumn):
+    """Footer columns"""
