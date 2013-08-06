@@ -13,6 +13,6 @@
        tal:content="structure provider:ftw.footer.column4" />
   <div class="visualClear"><!-- --></div>
   <div class="managePortletsLink" tal:condition="view/has_permission">
-    <a tal:attributes="href string:${context/absolute_url}/manage-footer" i18n:translate>Manage Footer</a>
+    <a tal:attributes="href string:${context/absolute_url}/manage-footer" i18n:translate="">Manage Footer</a>
   </div>
 </div>

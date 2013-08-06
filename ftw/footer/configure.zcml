@@ -6,16 +6,16 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.footer">
 
-  <include file="permissions.zcml" />
-  <include zcml:condition="installed ftw.lawgiver" file="lawgiver.zcml" />
+    <include file="permissions.zcml" />
+    <include zcml:condition="installed ftw.lawgiver" file="lawgiver.zcml" />
 
-  <genericsetup:registerProfile
-    name="default"
-    title="ftw.footer"
-    directory="profiles/default"
-    description="Installs the ftw.footer package"
-    provides="Products.GenericSetup.interfaces.EXTENSION"
-    />
+    <genericsetup:registerProfile
+        name="default"
+        title="ftw.footer"
+        directory="profiles/default"
+        description="Installs the ftw.footer package"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
 
 
     <browser:viewlet
@@ -34,6 +34,15 @@
         class=".footer_viewlet.FooterViewlet"
         permission="zope2.View"
         layer="ftw.footer.interfaces.IFtwFooterLayer"
+        />
+
+
+    <browser:page
+        for="*"
+        class="plone.app.portlets.browser.manage.ManageContextualPortlets"
+        name="manage-footer"
+        template="manage-footer.pt"
+        permission="ftw.footer.ManageFooter"
         />
 
 
