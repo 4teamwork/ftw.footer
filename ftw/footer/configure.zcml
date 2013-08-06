@@ -1,0 +1,38 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="ftw.footer">
+
+  <include file="permissions.zcml" />
+
+  <genericsetup:registerProfile
+    name="default"
+    title="ftw.footer"
+    directory="profiles/default"
+    description="Installs the ftw.footer package"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
+
+
+    <browser:viewlet
+        for="Products.CMFCore.interfaces.IContentish"
+        name="ftw.footer.viewlet"
+        manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
+        class=".footer_viewlet.FooterViewlet"
+        permission="zope2.View"
+        layer="ftw.footer.interfaces.IFtwFooterLayer"
+        />
+
+    <browser:viewlet
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        name="ftw.footer.viewlet"
+        manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
+        class=".footer_viewlet.FooterViewlet"
+        permission="zope2.View"
+        layer="ftw.footer.interfaces.IFtwFooterLayer"
+        />
+
+
+</configure>
