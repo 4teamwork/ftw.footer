@@ -8,6 +8,7 @@ maintainer = 'Mathias Leimgruber'
 tests_require = [
     'plone.app.testing',
     'ftw.builder',
+    'pyquery',
     ]
 
 setup(name='ftw.footer',

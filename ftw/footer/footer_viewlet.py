@@ -44,7 +44,7 @@ class FooterViewlet(common.ViewletBase):
             classes = 'column cell position-%s width-%s' % (index, width)
             return classes
 
-        def check_display(self, index):
+        def is_column_visible(self, index):
             columns = self.get_column_count()
             return bool(index <= columns)
 
