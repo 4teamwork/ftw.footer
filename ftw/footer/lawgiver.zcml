@@ -5,8 +5,8 @@
 
     <include package="ftw.lawgiver" file="meta.zcml" />
 
-
-    <lawgiver:ignore
+    <lawgiver:map_permissions
+        action_group="manage footer"
         permissions="ftw.footer: Manage Footer"
         />
 
