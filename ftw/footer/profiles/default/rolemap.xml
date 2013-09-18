@@ -3,6 +3,7 @@
     <permissions>
         <permission name="ftw.footer: Manage Footer" acquire="False">
             <role name="Manager" />
+            <role name="Site Administrator" />
         </permission>
     </permissions>
 </rolemap>
