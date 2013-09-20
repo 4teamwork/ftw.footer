@@ -122,3 +122,13 @@ class TestFooter(TestCase):
         child = PyQuery(child)
         self.assertEqual(child.attr('class'), 'column cell position-8 width-8')
 
+    def test_CAN_manager_footer(self):
+        viewlet = self.get_viewlet(self.portal)
+        self.assertTrue(viewlet.has_permission())
+
+    def test_CANNOT_manage_footer(self):
+        viewlet = self.get_viewlet(self.portal)
+
+        self.portal.manage_permission('ftw.footer: Manage Footer',
+                                       roles=[])
+        self.assertFalse(viewlet.has_permission())
