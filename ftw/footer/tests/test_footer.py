@@ -27,7 +27,7 @@ class TestFooter(TestCase):
         setRoles(self.portal, TEST_USER_ID, ['Manager'])
         login(self.portal, TEST_USER_NAME)
 
-    def get_viewet(self, context):
+    def get_viewlet(self, context):
         alsoProvides(context.REQUEST, IFtwFooterLayer)
         view = BrowserView(context, context.REQUEST)
         manager_name = 'plone.portalfooter'
@@ -48,18 +48,18 @@ class TestFooter(TestCase):
         return None
 
     def test_viewlet_registered_on_plone_root(self):
-        viewlet = self.get_viewet(self.portal)
+        viewlet = self.get_viewlet(self.portal)
 
         self.assertTrue(viewlet, 'Viewlet is not available on portal root')
 
     def test_viewlet_registered_on_folder(self):
         folder = create(Builder('folder'))
-        viewlet = self.get_viewet(folder)
+        viewlet = self.get_viewlet(folder)
 
         self.assertTrue(viewlet, 'Viewlet is not available on portal root')
 
     def test_generate_classes(self):
-        viewlet = self.get_viewet(self.portal)
+        viewlet = self.get_viewlet(self.portal)
 
         self.assertEqual('column cell position-0 width-4',
                          viewlet.generate_classes('ftw.footer.column1'))
@@ -71,7 +71,7 @@ class TestFooter(TestCase):
                          viewlet.generate_classes('ftw.footer.column4'))
 
     def test_calculate_index(self):
-        viewlet = self.get_viewet(self.portal)
+        viewlet = self.get_viewlet(self.portal)
 
         self.assertEqual(12, viewlet.calculate_index('ftw.footer.column4'))
         self.assertEqual(8, viewlet.calculate_index('ftw.footer.column3'))
@@ -79,7 +79,7 @@ class TestFooter(TestCase):
         self.assertEqual(0, viewlet.calculate_index('ftw.footer.column1'))
 
     def test_is_column_visible(self):
-        viewlet = self.get_viewet(self.portal)
+        viewlet = self.get_viewlet(self.portal)
 
         registry = getUtility(IRegistry)
         proxy = registry.forInterface(IFooterSettings)
@@ -91,7 +91,7 @@ class TestFooter(TestCase):
         self.assertEqual(viewlet.is_column_visible(4), False)
 
     def test_calculate_width(self):
-        viewlet = self.get_viewet(self.portal)
+        viewlet = self.get_viewlet(self.portal)
         registry = getUtility(IRegistry)
         proxy = registry.forInterface(IFooterSettings)
 
@@ -104,7 +104,7 @@ class TestFooter(TestCase):
         self.assertEqual(16, viewlet.calculate_width())
 
     def test_css_classes(self):
-        viewlet = self.get_viewet(self.portal)
+        viewlet = self.get_viewlet(self.portal)
 
         registry = getUtility(IRegistry)
         proxy = registry.forInterface(IFooterSettings)
@@ -122,3 +122,13 @@ class TestFooter(TestCase):
         child = PyQuery(child)
         self.assertEqual(child.attr('class'), 'column cell position-8 width-8')
 
+    def test_CAN_manager_footer(self):
+        viewlet = self.get_viewlet(self.portal)
+        self.assertTrue(viewlet.has_permission())
+
+    def test_CANNOT_manage_footer(self):
+        viewlet = self.get_viewlet(self.portal)
+
+        self.portal.manage_permission('ftw.footer: Manage Footer',
+                                       roles=[])
+        self.assertFalse(viewlet.has_permission())

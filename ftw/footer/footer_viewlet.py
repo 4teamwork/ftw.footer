@@ -50,8 +50,8 @@ class FooterViewlet(common.ViewletBase):
 
         def has_permission(self):
             sm = getSecurityManager()
-            return bool(sm.checkPermission('ftw.footer.ManageFooter',
-                self.context))
+            return bool(sm.checkPermission('ftw.footer: Manage Footer',
+                                           self.context))
 
         def get_column_count(self):
             registry = getUtility(IRegistry)
