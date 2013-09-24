@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.1.3.dev0'
+version = '1.0.0dev0'
 
 maintainer = 'Mathias Leimgruber'
 
@@ -13,7 +13,7 @@ tests_require = [
 
 setup(name='ftw.footer',
       version=version,
-      description="Show 1 - 4 portlets as footer",
+      description="Adds portlet columns as footer to Plone.",
       long_description=open("README.rst").read() + "\n" + \
           open(os.path.join("docs", "HISTORY.txt")).read(),
 
@@ -47,8 +47,8 @@ setup(name='ftw.footer',
       extras_require=dict(tests=tests_require),
 
       entry_points="""
-# -*- Entry points: -*-
-[z3c.autoinclude.plugin]
-target = plone
-""",
+      # -*- Entry points: -*-
+      [z3c.autoinclude.plugin]
+      target = plone
+      """,
       )

@@ -4,6 +4,42 @@ Introduction
 ``ftw.footer`` provides a viewlet, which shows 1 - 4 contextual portlet columns.
 
 
+Installation
+============
+
+
+- Add ``ftw.footer`` to your buildout configuration:
+
+::
+
+    [instance]
+    eggs +=
+        ftw.footer
+
+- Run `bin/buildout`
+
+- Install the generic import profile.
+
+
+Configuration
+=============
+
+The amount of portlet columns in the footer can be configured in the
+`portal_registry` option `IFooterSettings.columns_count`.
+
+Up to four columns are currently supported.
+
+
+Screenshot
+===========
+
+.. image:: docs/screenshot.png
+
+The screenshot is created with
+`plonetheme.onegov <https://github.com/OneGov/plonetheme.onegov>`_.
+
+
+
 Links
 =====
 
