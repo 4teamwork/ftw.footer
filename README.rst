@@ -33,7 +33,7 @@ Up to four columns are currently supported.
 Screenshot
 ===========
 
-.. image:: docs/screenshot.png
+.. image:: https://raw.github.com/4teamwork/ftw.footer/master/docs/screenshot.png
 
 The screenshot is created with
 `plonetheme.onegov <https://github.com/OneGov/plonetheme.onegov>`_.
