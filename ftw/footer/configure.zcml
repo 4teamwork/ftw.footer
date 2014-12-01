@@ -50,4 +50,13 @@
       provides="plone.portlets.interfaces.IPortletManagerRenderer"
       />
 
+    <browser:page
+        for="plone.portlets.interfaces.ILocalPortletAssignable"
+        layer=".interfaces.IFtwFooterLayer"
+        class=".manage.CustomManageContextualPortlets"
+        permission="plone.app.portlets.ManagePortlets"
+        name="set-portlet-blacklist-status"
+        attribute="set_blacklist_status"
+        />
+
 </configure>
