@@ -6,6 +6,8 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.footer">
 
+    <i18n:registerTranslations directory="locales" />
+
     <include file="permissions.zcml" />
     <include zcml:condition="installed ftw.lawgiver" file="lawgiver.zcml" />
 
@@ -49,5 +51,14 @@
       factory=".column.FooterColumnPortletManagerRenderer"
       provides="plone.portlets.interfaces.IPortletManagerRenderer"
       />
+
+    <browser:page
+        for="plone.portlets.interfaces.ILocalPortletAssignable"
+        layer=".interfaces.IFtwFooterLayer"
+        class=".manage.CustomManageContextualPortlets"
+        permission="plone.app.portlets.ManagePortlets"
+        name="set-portlet-blacklist-status"
+        attribute="set_blacklist_status"
+        />
 
 </configure>
