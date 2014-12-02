@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0.1 (unreleased)
+1.0.1 (2014-12-02)
 ------------------
 
 - Stay on the footer management view after modifying the portlet blacklist status.
