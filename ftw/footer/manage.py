@@ -27,7 +27,10 @@ class CustomManageContextualPortlets(ManageContextualPortlets):
             getMultiAdapter((self.context, self.request), name='absolute_url')
         )
 
-        # This is the part we need to override from the parent class.
-        self.request.response.redirect(base_url + '/manage-footer')
+        if self.request.get('HTTP_REFERER', '').endswith('manage-footer'):
+            # This is the part we need to override from the parent class.
+            self.request.response.redirect(base_url + '/manage-footer')
+        else:
+            self.request.response.redirect(base_url + '/@@manage-portlets')
 
         return ''
