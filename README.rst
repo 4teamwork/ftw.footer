@@ -43,9 +43,9 @@ The screenshot is created with
 Links
 =====
 
-- Github project repository: https://github.com/4teamwork/ftw.footer
-- Issue tracker: https://github.com/4teamwork/ftw.footer/issues
-- Package on pypi: http://pypi.python.org/pypi/ftw.footer
+- Github: https://github.com/4teamwork/ftw.footer
+- Issues: https://github.com/4teamwork/ftw.footer/issues
+- Pypi: http://pypi.python.org/pypi/ftw.footer
 - Continuous integration: https://jenkins.4teamwork.ch/search?q=ftw.footer
 
 
