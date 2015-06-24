@@ -61,4 +61,8 @@
         attribute="set_blacklist_status"
         />
 
+    <configure zcml:condition="installed ftw.theming">
+        <include file="resources.zcml" />
+    </configure>
+
 </configure>
