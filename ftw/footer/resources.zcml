@@ -5,7 +5,6 @@
 
     <include package="ftw.theming" />
 
-    <theme:scss file="browser/resources/scss/variables.scss" slot="variables" />
     <theme:scss file="browser/resources/scss/footer.scss" />
 
 </configure>
