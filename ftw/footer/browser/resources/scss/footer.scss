@@ -1,3 +1,10 @@
+$footer-background-color: $gray-dark;
+$footer-font-color: #fff;
+
+@include declare-variables(
+  footer-background-color,
+  footer-font-color);
+
 #ftw-footer {
   background: $footer-background-color;
   color: $footer-font-color;
