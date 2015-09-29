@@ -9,6 +9,7 @@ tests_require = [
     'plone.app.testing',
     'ftw.builder',
     'pyquery',
+    'unittest2',
     ]
 
 setup(name='ftw.footer',
