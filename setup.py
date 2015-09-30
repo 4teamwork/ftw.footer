@@ -42,6 +42,7 @@ setup(name='ftw.footer',
       zip_safe=False,
 
       install_requires=[
+        'Plone',
         'setuptools',
         ],
       tests_require=tests_require,
