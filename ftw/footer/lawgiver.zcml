@@ -3,7 +3,7 @@
     xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
     i18n_domain="ftw.lawgiver">
 
-    <include package="ftw.lawgiver" file="meta.zcml" />
+    <include package="ftw.lawgiver" />
 
     <lawgiver:map_permissions
         action_group="manage footer"

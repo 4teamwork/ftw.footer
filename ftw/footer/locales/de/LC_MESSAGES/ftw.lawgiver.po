@@ -14,8 +14,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
 
-#: ./ftw/footer/manage.py:24
-msgid "Settings have been saved."
-msgstr ""
+msgid "manage footer"
+msgstr "den Footer verwalten"
 
 
