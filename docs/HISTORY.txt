@@ -4,6 +4,9 @@ Changelog
 1.0.4 (unreleased)
 ------------------
 
+- Implement responsive footer according the latest ftw.theming implementation.
+  [mathias.leimgruber]
+
 - Translate the lawgiver action group to be used in German workflow specifications.
   [mbaechtold]
 

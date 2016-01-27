@@ -1,35 +1,118 @@
 $footer-background-color: $gray-dark !default;
-$footer-font-color: #fff !default;
 $footer-font-size: $font-size-base !default;
-$footer-link-color: $link-color !default;
 $footer-link-font-weight: $link-font-weight !default;
-$footer-link-color-hover: $link-hover-color !default;
 $footer-link-decoration: $link-decoration !default;
 $footer-link-hover-decoration: $link-hover-decoration !default;
 
-@include declare-variables(
-  footer-background-color,
-  footer-font-color,
-  footer-link-color,
-  footer-link-color-hover,
-  footer-font-size,
-  footer-link-decoration);
+@include declare-variables(footer-background-color, footer-font-size, footer-link-decoration);
+
+#footer {
+  @include clearfix;
+}
 
 #ftw-footer {
+  @include row;
+
   background: $footer-background-color;
-  color: $footer-font-color;
+
+  @include auto-text-color($footer-background-color);
+
   font-size: $footer-font-size;
+
   a {
-    color: $footer-link-color;
     text-decoration: $footer-link-decoration;
     font-weight: $footer-link-font-weight;
+
     &:hover {
-        color: $footer-link-color-hover;
-        text-decoration: $footer-link-hover-decoration;
+      text-decoration: $footer-link-hover-decoration;
     }
   }
+
   .portletItem {
     margin-left: 0;
   }
 
+  .column {
+    @include cell;
+
+    @include gridwidth(16);
+
+    @include gridposition(0);
+
+    clear: both;
+
+    @include screen-small {
+      &#footer-column-1 {
+        @include gridposition(0);
+
+        @include gridwidth(8);
+
+        clear: none;
+      }
+
+      &#footer-column-2 {
+        @include gridposition(8);
+
+        @include gridwidth(8);
+
+        clear: none;
+      }
+
+      &#footer-column-3 {
+        @include gridposition(0);
+
+        @include gridwidth(8);
+
+        clear: both;
+      }
+
+      &#footer-column-4 {
+        @include gridposition(8);
+
+        @include gridwidth(8);
+
+        clear: none;
+      }
+    }
+
+
+    @include screen-large {
+      &#footer-column-1 {
+        @include gridposition(0);
+
+        @include gridwidth(4);
+
+        clear: none;
+      }
+
+      &#footer-column-2 {
+        @include gridposition(4);
+
+        @include gridwidth(4);
+
+        clear: none;
+      }
+
+      &#footer-column-3 {
+        @include gridposition(8);
+
+        @include gridwidth(4);
+
+        clear: none;
+      }
+
+      &#footer-column-4 {
+        @include gridposition(12);
+
+        @include gridwidth(4);
+
+        clear: none;
+      }
+    }
+  }
+
+  .managePortletsLink {
+    clear: both;
+    text-align: center;
+  }
 }
