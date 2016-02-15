@@ -4,6 +4,10 @@ Changelog
 1.0.4 (unreleased)
 ------------------
 
+- Use alternate color for links in the footer.
+  Remove border below the footer portlets.
+  [Kevin Bieri]
+
 - Adapt footer styling based on ftw.theming rework.
   [Kevin Bieri]
 
