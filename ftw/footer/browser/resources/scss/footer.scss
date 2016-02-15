@@ -47,63 +47,45 @@ $footer-background-color: $color-secondary !default;
       @include button($color-primary);
     }
   }
-}
 
-[id^="footer-column-"] {
-  @include cell;
-  @include gridwidth(16);
-  @include gridposition(0);
-  clear: both;
-}
-
-@include screen-small {
-  #footer-column-1 {
+  [id^="footer-column-"] {
+    @include cell;
     @include gridposition(0);
-    @include gridwidth(8);
-    clear: none;
-  }
-
-  #footer-column-2 {
-    @include gridposition(8);
-    @include gridwidth(8);
-    clear: none;
-  }
-
-  #footer-column-3 {
-    @include gridposition(0);
-    @include gridwidth(8);
+    @include gridwidth(16);
     clear: both;
-  }
-
-  #footer-column-4 {
-    @include gridposition(8);
-    @include gridwidth(8);
-    clear: none;
-  }
-}
-
-@include screen-large {
-  #footer-column-1 {
-    @include gridposition(0);
-    @include gridwidth(4);
-    clear: none;
+    @include screen-small {
+      @include gridwidth(8);
+      clear: none;
+    }
+    @include screen-large {
+      @include gridwidth(4);
+    }
   }
 
   #footer-column-2 {
-    @include gridposition(4);
-    @include gridwidth(4);
-    clear: none;
+    @include screen-small {
+      @include gridposition(8);
+    }
+    @include screen-large {
+      @include gridposition(4);
+    }
   }
-
   #footer-column-3 {
-    @include gridposition(8);
-    @include gridwidth(4);
-    clear: none;
+    @include screen-small {
+      clear: both;
+    }
+    @include screen-large {
+      clear: none;
+      @include gridposition(8);
+    }
   }
-
   #footer-column-4 {
-    @include gridposition(12);
-    @include gridwidth(4);
-    clear: none;
+    @include screen-small {
+      @include gridposition(8);
+    }
+    @include screen-large {
+      @include gridposition(12);
+    }
   }
 }
+
