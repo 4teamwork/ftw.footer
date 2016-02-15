@@ -22,6 +22,11 @@ $footer-background-color: $color-secondary !default;
   float: none;
   padding-top: $padding-vertical * 12;
 
+  .portletWrapper {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
   .portlet {
     @include reset-definition-list();
   }
