@@ -6,6 +6,13 @@ $footer-background-color: $color-secondary !default;
   @include clearfix;
   background: $footer-background-color;
   margin-top: -$padding-vertical * 10;
+
+  a {
+    color: $color-link-inverted;
+    &:hover {
+      color: $color-link-hover-inverted;
+    }
+  }
 }
 
 #columns {
