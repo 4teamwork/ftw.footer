@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0.4 (unreleased)
+1.1.0 (2016-03-03)
 ------------------
 
 - Use alternate color for links in the footer.
