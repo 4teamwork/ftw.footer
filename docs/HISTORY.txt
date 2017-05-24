@@ -4,7 +4,8 @@ Changelog
 1.1.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Enable the footer on non-contentish items.
+  [lknoepfel]
 
 
 1.1.1 (2016-05-20)

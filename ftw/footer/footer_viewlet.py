@@ -1,9 +1,12 @@
 from AccessControl import getSecurityManager
+from Acquisition._Acquisition import aq_parent
 from ftw.footer.interfaces import IFooterSettings
 from plone.app.layout.viewlets import common
 from plone.portlets.interfaces import IPortletAssignmentMapping
 from plone.portlets.interfaces import IPortletManager
 from plone.registry.interfaces import IRegistry
+from Products.CMFCore.interfaces import IContentish
+from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import getMultiAdapter
 from zope.component import getUtility
@@ -15,6 +18,15 @@ GRIDROWS = 16  # This should be configurable thru registry
 class FooterViewlet(common.ViewletBase):
 
         index = ViewPageTemplateFile('footer_viewlet.pt')
+
+        def __init__(self, context, request, view, manager=None):
+            super(FooterViewlet, self).__init__(context, request, view, manager)
+
+            # Set context to closest content to adapt the assignment mapping.
+            self.context = context
+            while not IContentish.providedBy(self.context) and \
+                    not IPloneSiteRoot.providedBy(self.context):
+                self.context = aq_parent(self.context)
 
         def calculate_width(self):
             columns = self.get_column_count()
