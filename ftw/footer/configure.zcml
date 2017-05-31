@@ -21,16 +21,7 @@
 
 
     <browser:viewlet
-        for="Products.CMFCore.interfaces.IContentish"
-        name="ftw.footer.viewlet"
-        manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
-        class=".footer_viewlet.FooterViewlet"
-        permission="zope2.View"
-        layer="ftw.footer.interfaces.IFtwFooterLayer"
-        />
-
-    <browser:viewlet
-        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        for="*"
         name="ftw.footer.viewlet"
         manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
         class=".footer_viewlet.FooterViewlet"
