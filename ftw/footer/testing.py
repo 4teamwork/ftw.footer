@@ -31,6 +31,7 @@ class FtwFooterLayer(PloneSandboxLayer):
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, 'ftw.footer:default')
+        applyProfile(portal, 'plone.app.contenttypes:default')
 
         # Tell ftw.builder to use DX content types, even for Plone 4.3.
         # This is needed because Plone 5.1 needs `plone.app.contenttypes`.

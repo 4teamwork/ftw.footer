@@ -6,6 +6,7 @@ version = '1.1.3.dev0'
 maintainer = 'Mathias Leimgruber'
 
 tests_require = [
+    'plone.app.contenttypes',
     'plone.app.testing',
     'ftw.builder',
     'ftw.testbrowser',
