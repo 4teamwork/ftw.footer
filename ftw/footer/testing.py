@@ -1,3 +1,4 @@
+from ftw.builder.content import register_dx_content_builders
 from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import functional_session_factory
 from ftw.builder.testing import set_builder_session_factory
@@ -22,16 +23,18 @@ class FtwFooterLayer(PloneSandboxLayer):
             '  <includePluginsOverrides package="plone" />'
             '</configure>',
             context=configurationContext)
-        # Load ZCML
-        import ftw.footer
 
-        xmlconfig.file('configure.zcml', ftw.footer,
-                       context=configurationContext)
-
-        z2.installProduct(app, 'ftw.footer')
+        # The tests will fail with a
+        # `ValueError: Index of type DateRecurringIndex not found` unless
+        # the product 'Products.DateRecurringIndex' is installed.
+        z2.installProduct(app, 'Products.DateRecurringIndex')
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, 'ftw.footer:default')
+
+        # Tell ftw.builder to use DX content types, even for Plone 4.3.
+        # This is needed because Plone 5.1 needs `plone.app.contenttypes`.
+        register_dx_content_builders(force=True)
 
 
 FTW_FOOTER_FIXTURE = FtwFooterLayer()
