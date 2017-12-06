@@ -6,6 +6,7 @@ version = '1.1.3.dev0'
 maintainer = 'Mathias Leimgruber'
 
 tests_require = [
+    'plone.app.contenttypes',
     'plone.app.testing',
     'ftw.builder',
     'ftw.testbrowser',
@@ -24,8 +25,8 @@ setup(name='ftw.footer',
 
       classifiers=[
         'Framework :: Plone',
-        'Framework :: Plone :: 4.2',
         'Framework :: Plone :: 4.3',
+        'Framework :: Plone :: 5.1',
         'Programming Language :: Python',
         'Topic :: Software Development :: Libraries :: Python Modules',
         ],
