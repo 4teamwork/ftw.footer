@@ -24,7 +24,7 @@ Installation
 Configuration
 =============
 
-The amount of portlet columns in the footer can be configured in the
+The number of portlet columns in the footer can be configured in the
 `portal_registry` option `IFooterSettings.columns_count`.
 
 Up to four columns are currently supported.
