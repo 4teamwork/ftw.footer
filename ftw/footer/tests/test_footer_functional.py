@@ -3,7 +3,10 @@ from ftw.testbrowser import browsing
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from unittest import TestCase
+import pkg_resources
 import transaction
+
+IS_PLONE_5 = pkg_resources.get_distribution('Products.CMFPlone').version >= '5'
 
 
 class TestFooterFunctional(TestCase):
@@ -28,31 +31,64 @@ class TestFooterFunctional(TestCase):
 
         # Add a footer portlet.
         browser.open(self.add_portlet_url)
-        browser.fill({
-            'Text The text to render': 'My Portlet Text',
-        }).save()
 
-        # The footer portlet is shown on the Plone Site.
-        browser.open(self.portal)
-        self.assertEqual(
-            'My Portlet Text',
-            browser.css('#footer-column-1').first.text
-        )
+        if IS_PLONE_5:
+            browser.fill({
+                'form.widgets.header': u'\xe4s Titeli',
+                'form.widgets.text': 'My Portlet Text'
+            }).save()
 
-        # The footer portlet is shown on the control panel, which is a view
-        # on a contentish object (Plone Site).
-        browser.open(self.portal.absolute_url() + '/@@overview-controlpanel')
-        self.assertEqual(
-            'My Portlet Text',
-            browser.css('#footer-column-1').first.text
-        )
+            # The footer portlet is shown on the Plone Site.
+            browser.open(self.portal)
+            self.assertEqual(
+                u'\xe4s Titeli',
+                browser.css('#portal-footer .headline').first.text
+            )
 
-        # The footer portlet is shown when managing the footer.
-        browser.find('Manage Footer').click()
-        self.assertEqual(
-            'My Portlet Text',
-            browser.css('#footer-column-1').first.text
-        )
+            # The footer portlet is shown on the control panel, which is a view
+            # on a contentish object (Plone Site).
+            browser.open(self.portal.absolute_url() + '/@@overview-controlpanel')
+            self.assertEqual(
+                u'\xe4s Titeli',
+                browser.css('#portal-footer .headline').first.text
+            )
+
+            # The Manage Portlets button was removed by diazo. But now
+            # we have the option to Manage each portlet from the portal menu.
+            browser.open(self.portal)
+            browser.find('Ftw Footer Column1').click()
+            self.assertEqual(
+                u'\xe4s Titeli',
+                browser.css('#portal-footer .headline').first.text
+            )
+
+        else:
+            browser.fill({
+                'form.header': u'\xe4s Titeli',
+                'form.text': 'My Portlet Text'
+            }).save()
+
+            # The footer portlet is shown on the Plone Site.
+            browser.open(self.portal)
+            self.assertEqual(
+                u'\xe4s Titeli My Portlet Text',
+                browser.css('#footer-column-1').first.text
+            )
+
+            # The footer portlet is shown on the control panel, which is a view
+            # on a contentish object (Plone Site).
+            browser.open(self.portal.absolute_url() + '/@@overview-controlpanel')
+            self.assertEqual(
+                u'\xe4s Titeli My Portlet Text',
+                browser.css('#footer-column-1').first.text
+            )
+
+            # The footer portlet is shown when managing the footer.
+            browser.find('Manage Footer').click()
+            self.assertEqual(
+                u'\xe4s Titeli My Portlet Text',
+                browser.css('#footer-column-1').first.text
+            )
 
     @browsing
     def test_footer_on_non_contentish_object(self, browser):
@@ -64,13 +100,30 @@ class TestFooterFunctional(TestCase):
 
         # Add a footer portlet.
         browser.open(self.add_portlet_url)
-        browser.fill({
-            'Text The text to render': 'My Portlet Text',
-        }).save()
 
-        # The footer portlet is shown on a portlet context.
-        browser.open(self.portal.absolute_url() + '/++contextportlets++ftw.footer.column1/portlet_static/edit')
-        self.assertEqual(
-            'My Portlet Text',
-            browser.css('#footer-column-1').first.text
-        )
+        if IS_PLONE_5:
+            browser.fill({
+                'form.widgets.header': u'\xe4s Titeli',
+                'form.widgets.text': 'My Portlet Text'
+            }).save()
+            # The footer portlet is shown on a portlet context.
+            browser.open(self.portal.absolute_url() +
+                         '/++contextportlets++ftw.footer.column1/as-titeli/edit')
+
+            self.assertEqual(
+                u'\xe4s Titeli',
+                browser.css('#form-widgets-header').first.value
+            )
+        else:
+            browser.fill({
+                'form.header': u'\xe4s Titeli',
+                'form.text': 'My Portlet Text'
+            }).save()
+            # The footer portlet is shown on a portlet context.
+            browser.open(self.portal.absolute_url() +
+                         '/++contextportlets++ftw.footer.column1/as-titeli/edit')
+
+            self.assertEqual(
+                u'\xe4s Titeli My Portlet Text',
+                browser.css('#footer-column-1').first.text
+            )
