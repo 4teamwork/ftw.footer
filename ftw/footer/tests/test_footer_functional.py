@@ -1,12 +1,10 @@
+from ftw.footer import IS_PLONE_5
 from ftw.footer.testing import FTW_FOOTER_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from unittest import TestCase
-import pkg_resources
 import transaction
-
-IS_PLONE_5 = pkg_resources.get_distribution('Products.CMFPlone').version >= '5'
 
 
 class TestFooterFunctional(TestCase):

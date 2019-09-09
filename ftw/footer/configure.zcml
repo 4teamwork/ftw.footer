@@ -31,6 +31,7 @@
 
 
     <browser:page
+        zcml:condition="not-have plone-5"
         for="*"
         class="plone.app.portlets.browser.manage.ManageContextualPortlets"
         name="manage-footer"

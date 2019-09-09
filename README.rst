@@ -3,6 +3,15 @@ Introduction
 
 ``ftw.footer`` provides a viewlet, which shows 1 - 4 contextual portlet columns.
 
+Compatibility
+-------------
+
+- Plone 4.3.x
+- Plone 5.1.x
+
+Note: Since Plone 5 provides the means to edit any portlet manager through the
+Manage portlets menu item, we've taken the step to disable the manage-footer
+view from Plone 5 onwards.  (It also didn't work well on small screens)
 
 Installation
 ============

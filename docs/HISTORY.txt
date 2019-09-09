@@ -8,6 +8,8 @@ Changelog
 
 - Drop support for Plone 4.2.x. [mbaechtold]
 
+- Disable manage-footer view on Plone 5, since Plone 5 provides the means to
+  edit any portlet manager through the Manage portlets menu item. [djowett-ftw]
 
 1.1.2 (2017-08-08)
 ------------------

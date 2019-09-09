@@ -1,5 +1,7 @@
 from ftw.builder import Builder
 from ftw.builder import create
+
+from ftw.footer import IS_PLONE_5
 from ftw.footer.interfaces import IFooterSettings
 from ftw.footer.interfaces import IFtwFooterLayer
 from ftw.footer.testing import FTW_FOOTER_INTEGRATION_TESTING
@@ -122,13 +124,13 @@ class TestFooter(TestCase):
         child = PyQuery(child)
         self.assertEqual(child.attr('class'), 'column cell position-8 width-8')
 
-    def test_CAN_manager_footer(self):
+    def test_footer_management_permission(self):
         viewlet = self.get_viewlet(self.portal)
-        self.assertTrue(viewlet.has_permission())
-
-    def test_CANNOT_manage_footer(self):
-        viewlet = self.get_viewlet(self.portal)
+        if IS_PLONE_5:
+            self.assertFalse(viewlet.can_manage(), 'No manage-footer viewlet in Plone5')
+        else:
+            self.assertTrue(viewlet.can_manage())
 
         self.portal.manage_permission('ftw.footer: Manage Footer',
                                        roles=[])
-        self.assertFalse(viewlet.has_permission())
+        self.assertFalse(viewlet.can_manage())

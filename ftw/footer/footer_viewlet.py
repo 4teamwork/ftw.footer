@@ -1,5 +1,7 @@
 from AccessControl import getSecurityManager
 from Acquisition._Acquisition import aq_parent
+
+from ftw.footer import IS_PLONE_5
 from ftw.footer.interfaces import IFooterSettings
 from plone.app.layout.viewlets import common
 from plone.portlets.interfaces import IPortletAssignmentMapping
@@ -60,7 +62,9 @@ class FooterViewlet(common.ViewletBase):
             columns = self.get_column_count()
             return bool(index <= columns)
 
-        def has_permission(self):
+        def can_manage(self):
+            if IS_PLONE_5:
+                return False
             sm = getSecurityManager()
             return bool(sm.checkPermission('ftw.footer: Manage Footer',
                                            self.context))
