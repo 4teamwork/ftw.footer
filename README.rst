@@ -9,9 +9,16 @@ Compatibility
 - Plone 4.3.x
 - Plone 5.1.x
 
-Note: Since Plone 5 provides the means to edit any portlet manager through the
-Manage portlets menu item, we've taken the step to disable the manage-footer
-view from Plone 5 onwards.  (It also didn't work well on small screens)
+Plone 5 notes
+-------------
+
+- Since Plone 5 provides the means to edit any portlet manager through the
+  Manage portlets menu item, we've taken the step to disable the manage-footer
+  view from Plone 5 onwards.  (It also didn't work well on small screens).
+
+- Plone 5's (default) Barceloneta theme automatically distributes the portlet
+  managers from this product across the footer.  This is usually OK, but if it
+  does not suit your requirements, then you should use a different theme.
 
 Installation
 ============
