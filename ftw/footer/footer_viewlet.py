@@ -14,7 +14,7 @@ from zope.component import getMultiAdapter
 from zope.component import getUtility
 
 
-GRIDROWS = 16  # This should be configurable thru registry
+GRIDCOLS = 12 if IS_PLONE_5 else 16 # This should be configurable thru registry
 
 
 class FooterViewlet(common.ViewletBase):
@@ -32,9 +32,10 @@ class FooterViewlet(common.ViewletBase):
 
         def calculate_width(self):
             columns = self.get_column_count()
-            width = GRIDROWS / columns
+            width = GRIDCOLS / columns
             return width
 
+        # Redundant in Plone 5
         def calculate_index(self, manager):
             self.managers = self.get_managers()
             index = self.managers[manager]['index']
@@ -54,8 +55,11 @@ class FooterViewlet(common.ViewletBase):
 
         def generate_classes(self, manager):
             width = self.calculate_width()
-            index = self.calculate_index(manager)
-            classes = 'column cell position-%s width-%s' % (index, width)
+            if IS_PLONE_5:
+                classes = 'col-lg-{}'.format(width)
+            else:
+                index = self.calculate_index(manager)
+                classes = 'column cell position-%s width-%s' % (index, width)
             return classes
 
         def is_column_visible(self, index):

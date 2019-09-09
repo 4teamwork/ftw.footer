@@ -11,6 +11,9 @@ Changelog
 - Disable manage-footer view on Plone 5, since Plone 5 provides the means to
   edit any portlet manager through the Manage portlets menu item. [djowett-ftw]
 
+- Accommodate the Grid system in Plone 5 (12 column bootstrap grid, instead of
+  16 column Deco.gs) [djowett-ftw]
+
 1.1.2 (2017-08-08)
 ------------------
 
