@@ -1,18 +1,21 @@
 Changelog
 =========
 
-1.1.3 (unreleased)
+1.2.0 (unreleased)
 ------------------
 
 - Add support for Plone 5.1.x. [mbaechtold]
 
 - Drop support for Plone 4.2.x. [mbaechtold]
 
+- Fix tests for Plone 5 [busykoala, djowett-ftw]
+
 - Disable manage-footer view on Plone 5, since Plone 5 provides the means to
   edit any portlet manager through the Manage portlets menu item. [djowett-ftw]
 
 - Accommodate the Grid system in Plone 5 (12 column bootstrap grid, instead of
   16 column Deco.gs) [djowett-ftw]
+
 
 1.1.2 (2017-08-08)
 ------------------
