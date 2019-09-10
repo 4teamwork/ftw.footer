@@ -1,6 +1,5 @@
 from AccessControl import getSecurityManager
 from Acquisition._Acquisition import aq_parent
-
 from ftw.footer import IS_PLONE_5
 from ftw.footer.interfaces import IFooterSettings
 from plone.app.layout.viewlets import common
@@ -14,70 +13,69 @@ from zope.component import getMultiAdapter
 from zope.component import getUtility
 
 
-GRIDCOLS = 12 if IS_PLONE_5 else 16 # This should be configurable thru registry
+GRIDCOLS = 12 if IS_PLONE_5 else 16  # poss make configurable thru registry
 
 
 class FooterViewlet(common.ViewletBase):
+    index = ViewPageTemplateFile('footer_viewlet.pt')
 
-        index = ViewPageTemplateFile('footer_viewlet.pt')
+    def __init__(self, context, request, view, manager=None):
+        super(FooterViewlet, self).__init__(context, request, view, manager)
 
-        def __init__(self, context, request, view, manager=None):
-            super(FooterViewlet, self).__init__(context, request, view, manager)
+        # Set context to closest content to adapt the assignment mapping.
+        self.context = context
+        while not IContentish.providedBy(self.context) and \
+                not IPloneSiteRoot.providedBy(self.context):
+            self.context = aq_parent(self.context)
 
-            # Set context to closest content to adapt the assignment mapping.
-            self.context = context
-            while not IContentish.providedBy(self.context) and \
-                    not IPloneSiteRoot.providedBy(self.context):
-                self.context = aq_parent(self.context)
+    def calculate_width(self):
+        columns = self.get_column_count()
+        width = GRIDCOLS / columns
+        return width
 
-        def calculate_width(self):
-            columns = self.get_column_count()
-            width = GRIDCOLS / columns
-            return width
+    # Redundant in Plone 5
+    def calculate_index(self, manager):
+        self.managers = self.get_managers()
+        index = self.managers[manager]['index']
+        return (index - 1) * self.calculate_width()
 
-        # Redundant in Plone 5
-        def calculate_index(self, manager):
-            self.managers = self.get_managers()
-            index = self.managers[manager]['index']
-            return (index - 1) * self.calculate_width()
+    def get_managers(self):
+        managers = {}
+        for counter in range(1, 5):
+            manager = getUtility(IPortletManager,
+                                 name='ftw.footer.column%s' % str(
+                                     counter))
+            mapping = getMultiAdapter((self.context, manager),
+                                      IPortletAssignmentMapping).__of__(self.context)
+            managers['ftw.footer.column%s' % str(counter)] = {
+                'empty': not bool(mapping.keys()), 'index': counter}
+        return managers
 
-        def get_managers(self):
-            managers = {}
-            for counter in range(1, 5):
-                manager = getUtility(IPortletManager,
-                                     name='ftw.footer.column%s' % str(
-                                        counter))
-                mapping = getMultiAdapter((self.context, manager),
-                              IPortletAssignmentMapping).__of__(self.context)
-                managers['ftw.footer.column%s' % str(counter)] = {
-                        'empty': not bool(mapping.keys()), 'index': counter}
-            return managers
+    def generate_classes(self, manager):
+        width = self.calculate_width()
+        if IS_PLONE_5:
+            classes = 'col-lg-{}'.format(width)
+        else:
+            index = self.calculate_index(manager)
+            classes = 'column cell position-%s width-%s' % (index, width)
+        return classes
 
-        def generate_classes(self, manager):
-            width = self.calculate_width()
-            if IS_PLONE_5:
-                classes = 'col-lg-{}'.format(width)
-            else:
-                index = self.calculate_index(manager)
-                classes = 'column cell position-%s width-%s' % (index, width)
-            return classes
+    def is_column_visible(self, index):
+        columns = self.get_column_count()
+        return bool(index <= columns)
 
-        def is_column_visible(self, index):
-            columns = self.get_column_count()
-            return bool(index <= columns)
+    def can_manage(self):
+        if IS_PLONE_5:
+            return False
+        sm = getSecurityManager()
+        return bool(sm.checkPermission('ftw.footer: Manage Footer',
+                                       self.context))
 
-        def can_manage(self):
-            if IS_PLONE_5:
-                return False
-            sm = getSecurityManager()
-            return bool(sm.checkPermission('ftw.footer: Manage Footer',
-                                           self.context))
-
-        def get_column_count(self):
-            registry = getUtility(IRegistry)
-            footer_settings = registry.forInterface(IFooterSettings,
-                check=False)
-            if not footer_settings:
-                return 0
-            count = footer_settings.columns_count
-            return count
+    def get_column_count(self):
+        registry = getUtility(IRegistry)
+        footer_settings = registry.forInterface(IFooterSettings,
+                                                check=False)
+        if not footer_settings:
+            return 0
+        count = footer_settings.columns_count
+        return count

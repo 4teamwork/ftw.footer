@@ -1,6 +1,5 @@
 from ftw.builder import Builder
 from ftw.builder import create
-
 from ftw.footer import IS_PLONE_5
 from ftw.footer.interfaces import IFooterSettings
 from ftw.footer.interfaces import IFtwFooterLayer
