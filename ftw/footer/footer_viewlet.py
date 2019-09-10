@@ -42,12 +42,11 @@ class FooterViewlet(common.ViewletBase):
     def get_managers(self):
         managers = {}
         for counter in range(1, 5):
-            manager = getUtility(IPortletManager,
-                                 name='ftw.footer.column%s' % str(
-                                     counter))
+            pm_name = 'ftw.footer.column{}'.format(counter)
+            manager = getUtility(IPortletManager, name=pm_name)
             mapping = getMultiAdapter((self.context, manager),
                                       IPortletAssignmentMapping).__of__(self.context)
-            managers['ftw.footer.column%s' % str(counter)] = {
+            managers[pm_name] = {
                 'empty': not bool(mapping.keys()), 'index': counter}
         return managers
 
@@ -57,7 +56,7 @@ class FooterViewlet(common.ViewletBase):
             classes = 'col-lg-{}'.format(width)
         else:
             index = self.calculate_index(manager)
-            classes = 'column cell position-%s width-%s' % (index, width)
+            classes = 'column cell position-{} width-{}'.format(index, width)
         return classes
 
     def is_column_visible(self, index):
