@@ -1,5 +1,6 @@
 from ftw.builder import Builder
 from ftw.builder import create
+from ftw.footer import IS_PLONE_5
 from ftw.footer.interfaces import IFooterSettings
 from ftw.footer.interfaces import IFtwFooterLayer
 from ftw.footer.testing import FTW_FOOTER_INTEGRATION_TESTING
@@ -10,6 +11,7 @@ from plone.app.testing import TEST_USER_NAME
 from plone.registry.interfaces import IRegistry
 from Products.Five.browser import BrowserView
 from pyquery import PyQuery
+from unittest2 import skipIf
 from unittest2 import TestCase
 from zope.component import getUtility
 from zope.component import queryMultiAdapter
@@ -61,15 +63,20 @@ class TestFooter(TestCase):
     def test_generate_classes(self):
         viewlet = self.get_viewlet(self.portal)
 
-        self.assertEqual('column cell position-0 width-4',
-                         viewlet.generate_classes('ftw.footer.column1'))
-        self.assertEqual('column cell position-4 width-4',
-                         viewlet.generate_classes('ftw.footer.column2'))
-        self.assertEqual('column cell position-8 width-4',
-                         viewlet.generate_classes('ftw.footer.column3'))
-        self.assertEqual('column cell position-12 width-4',
-                         viewlet.generate_classes('ftw.footer.column4'))
+        if IS_PLONE_5:
+            self.assertEqual('col-lg-3',
+                             viewlet.generate_classes('ftw.footer.column3'))
+        else:
+            self.assertEqual('column cell position-0 width-4',
+                             viewlet.generate_classes('ftw.footer.column1'))
+            self.assertEqual('column cell position-4 width-4',
+                             viewlet.generate_classes('ftw.footer.column2'))
+            self.assertEqual('column cell position-8 width-4',
+                             viewlet.generate_classes('ftw.footer.column3'))
+            self.assertEqual('column cell position-12 width-4',
+                             viewlet.generate_classes('ftw.footer.column4'))
 
+    @skipIf(IS_PLONE_5, 'calculate index is redundant on Plone 5.')
     def test_calculate_index(self):
         viewlet = self.get_viewlet(self.portal)
 
@@ -95,13 +102,13 @@ class TestFooter(TestCase):
         registry = getUtility(IRegistry)
         proxy = registry.forInterface(IFooterSettings)
 
-        self.assertEqual(4, viewlet.calculate_width())
+        self.assertEqual(3 if IS_PLONE_5 else 4, viewlet.calculate_width())
 
         proxy.columns_count = 2
-        self.assertEqual(8, viewlet.calculate_width())
+        self.assertEqual(6 if IS_PLONE_5 else 8, viewlet.calculate_width())
 
         proxy.columns_count = 1
-        self.assertEqual(16, viewlet.calculate_width())
+        self.assertEqual(12 if IS_PLONE_5 else 16, viewlet.calculate_width())
 
     def test_css_classes(self):
         viewlet = self.get_viewlet(self.portal)
@@ -116,19 +123,22 @@ class TestFooter(TestCase):
         child = footer.children()[0]
         child = PyQuery(child)
 
-        self.assertEqual(child.attr('class'), 'column cell position-0 width-8')
+        if IS_PLONE_5:
+            self.assertEqual(child.attr('class'), 'col-lg-6')
+        else:
+            self.assertEqual(child.attr('class'), 'column cell position-0 width-8')
 
-        child = footer.children()[1]
-        child = PyQuery(child)
-        self.assertEqual(child.attr('class'), 'column cell position-8 width-8')
+            child = footer.children()[1]
+            child = PyQuery(child)
+            self.assertEqual(child.attr('class'), 'column cell position-8 width-8')
 
-    def test_CAN_manager_footer(self):
+    def test_footer_management_permission(self):
         viewlet = self.get_viewlet(self.portal)
-        self.assertTrue(viewlet.has_permission())
-
-    def test_CANNOT_manage_footer(self):
-        viewlet = self.get_viewlet(self.portal)
+        if IS_PLONE_5:
+            self.assertFalse(viewlet.can_manage(), 'No manage-footer viewlet in Plone5')
+        else:
+            self.assertTrue(viewlet.can_manage())
 
         self.portal.manage_permission('ftw.footer: Manage Footer',
                                        roles=[])
-        self.assertFalse(viewlet.has_permission())
+        self.assertFalse(viewlet.can_manage())
