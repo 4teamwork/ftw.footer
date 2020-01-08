@@ -4,8 +4,10 @@ Changelog
 1.2.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
-
+- Remove CSS rule for #columns which was creating a new stacking context
+  Looks like it was unnecessary for ftw.footer anyway.
+  Fixes https://github.com/4teamwork/izug.organisation/issues/1762
+  [djowett-ftw]
 
 1.2.0 (2019-09-12)
 ------------------

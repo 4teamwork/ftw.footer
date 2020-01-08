@@ -15,11 +15,6 @@ $footer-background-color: $color-secondary !default;
   }
 }
 
-#columns {
-  position: relative;
-  z-index: 1;
-}
-
 #ftw-footer {
   @include row;
   @include auto-text-color($footer-background-color);
